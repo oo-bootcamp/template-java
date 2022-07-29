@@ -20,7 +20,7 @@ public class PackingLotTest {
     void should_not_pack_when_parking_given_there_has_no_seat() {
         this.packingLot.parking(this.car);
 
-        Exception thrown = Assertions.assertThrows(Exception.class, () -> this.packingLot.parking(this.car));
+        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.packingLot.parking(this.car));
         assertEquals("Space is full", thrown.getMessage());
     }
 
@@ -41,5 +41,16 @@ public class PackingLotTest {
 
         assertThat(pickCar).isEqualTo(this.car);
         assertThat(this.packingLot.getUsedNumber()).isEqualTo(0);
+    }
+
+    @Test
+    void should_not_get_a_car_when_pick_up_car_given_a_same_ticket_twice() {
+        Ticket ticket = this.packingLot.parking(this.car);
+
+        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+            this.packingLot.pickup(ticket);
+            this.packingLot.pickup(ticket);
+        });
+        assertEquals("This ticket is already used.", thrown.getMessage());
     }
 }

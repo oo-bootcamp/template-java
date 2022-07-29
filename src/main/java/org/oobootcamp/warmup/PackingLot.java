@@ -30,12 +30,14 @@ public class PackingLot {
 
     public Car pickup(Ticket ticket) {
         if (this.tickets.contains(ticket)) {
-            for (Car car : this.cars) {
+            for (int i = 0; i < this.cars.size(); i ++) {
+                Car car = this.cars.get(i);
                 if (car.getCarNum().equals(ticket.getCarNum())) {
                     this.usedNumber--;
-                    return car;
+                    return this.cars.remove(i);
                 }
             }
+            throw new RuntimeException("This ticket is already used.");
         }
         return null;
     }
