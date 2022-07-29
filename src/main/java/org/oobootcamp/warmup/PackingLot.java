@@ -39,7 +39,7 @@ public class PackingLot {
             }
             throw new RuntimeException("This ticket is already used.");
         }
-        return null;
+        throw new RuntimeException("Invalid ticket");
     }
 
     public int getUsedNumber() {

@@ -53,4 +53,12 @@ public class PackingLotTest {
         });
         assertEquals("This ticket is already used.", thrown.getMessage());
     }
+
+    @Test
+    void should_not_get_a_car_when_pick_up_car_given_a_invalid_ticket() {
+        Ticket ticket = new Ticket("invalid_car");
+
+        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.packingLot.pickup(ticket));
+        assertEquals("Invalid ticket", thrown.getMessage());
+    }
 }
