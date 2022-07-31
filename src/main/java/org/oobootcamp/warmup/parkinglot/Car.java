@@ -1,4 +1,4 @@
-package org.oobootcamp.warmup;
+package org.oobootcamp.warmup.parkinglot;
 
 public class Car {
     private final String carNum;

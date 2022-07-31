@@ -1,4 +1,4 @@
-package org.oobootcamp.warmup;
+package org.oobootcamp.warmup.parkinglot;
 
 import java.util.ArrayList;
 import java.util.List;

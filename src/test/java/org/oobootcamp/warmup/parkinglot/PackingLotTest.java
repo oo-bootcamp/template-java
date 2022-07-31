@@ -1,4 +1,4 @@
-package org.oobootcamp.warmup;
+package org.oobootcamp.warmup.parkinglot;
 
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
