@@ -17,7 +17,7 @@ public class PackingLotTest {
     }
 
     @Test
-    void should_not_pack_when_parking_given_there_has_no_seat() {
+    void should_not_pack_when_parking_given_no_seats() {
         this.packingLot.parking(this.car);
 
         Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.packingLot.parking(this.car));
@@ -25,7 +25,7 @@ public class PackingLotTest {
     }
 
     @Test
-    void should_pack_and_get_a_ticket_when_parking_given_there_has_seats() {
+    void should_pack_and_get_a_ticket_when_parking_given_one_seat() {
         Ticket ticket = this.packingLot.parking(this.car);
 
         assertThat(ticket.getCarNum()).isEqualTo(this.car.getCarNum());
