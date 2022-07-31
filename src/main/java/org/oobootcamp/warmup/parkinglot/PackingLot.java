@@ -16,7 +16,7 @@ public class PackingLot {
     }
 
     public Ticket parking(Car car) {
-        if (this.total - this.getUsedNumber() == 0) {
+        if (! hasSpace()) {
             throw new RuntimeException("Space is full");
         }
 
@@ -39,7 +39,11 @@ public class PackingLot {
         throw new RuntimeException("Invalid ticket");
     }
 
-    public int getUsedNumber() {
+    public boolean hasSpace() {
+        return this.total - this.getUsedSize() != 0;
+    }
+
+    public int getUsedSize() {
         return cars.size();
     }
 }

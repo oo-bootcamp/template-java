@@ -30,7 +30,7 @@ public class PackingLotTest {
 
         assertThat(ticket.getCarNum()).isEqualTo(this.car.getCarNum());
         assertThat(ticket.getId()).isNotNull();
-        assertThat(this.packingLot.getUsedNumber()).isEqualTo(1);
+        assertThat(this.packingLot.getUsedSize()).isEqualTo(1);
     }
 
     @Test
@@ -40,7 +40,7 @@ public class PackingLotTest {
         Car pickCar = this.packingLot.pickup(ticket);
 
         assertThat(pickCar).isEqualTo(this.car);
-        assertThat(this.packingLot.getUsedNumber()).isEqualTo(0);
+        assertThat(this.packingLot.getUsedSize()).isEqualTo(0);
     }
 
     @Test
