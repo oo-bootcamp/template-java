@@ -1,40 +1,33 @@
-package org.oobootcamp.warmup;
+package org.oobootcamp.warmup.graduateparkingboy;
 
 import org.oobootcamp.warmup.parkinglot.Car;
 import org.oobootcamp.warmup.parkinglot.PackingLot;
 import org.oobootcamp.warmup.parkinglot.Ticket;
 
-import java.util.HashMap;
 import java.util.List;
 
 public class GraduateParkingBoy {
     private final List<PackingLot> parkingLots;
 
-    private final HashMap<String, Integer> belongingToParkingLot;
-
     public GraduateParkingBoy(List<PackingLot> parkingLots) {
         this.parkingLots = parkingLots;
-        this.belongingToParkingLot = new HashMap<>();
     }
 
     public Ticket parking(Car car) {
-        for (int i = 0; i < this.parkingLots.size(); i ++) {
-            PackingLot parkingLot = this.parkingLots.get(i);
+        for (PackingLot parkingLot: this.parkingLots) {
             if (parkingLot.hasSpace()){
-                this.belongingToParkingLot.put(car.getCarNum(), i+1);
                 return parkingLot.parking(car);
             }
         }
         throw new RuntimeException("All space is full");
     }
 
-    public int getParkingLotPosition(String carNum){
-        return this.belongingToParkingLot.get(carNum);
-    }
-
     public Car pickup(Ticket ticket) {
-        if (this.belongingToParkingLot.containsKey(ticket.getCarNum())){
-            return this.parkingLots.get(this.getParkingLotPosition(ticket.getCarNum()) - 1).pickup(ticket);
+        for (PackingLot parkingLot: this.parkingLots) {
+            Car car = parkingLot.pickup(ticket);
+            if (car != null){
+                return car;
+            }
         }
         throw new RuntimeException("Invalid ticket");
     }

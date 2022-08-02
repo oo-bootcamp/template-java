@@ -1,18 +1,16 @@
 package org.oobootcamp.warmup.parkinglot;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.HashMap;
+import java.util.Map;
 
 public class PackingLot {
-    private final int total;
+    private final int capacity;
 
-    private final List<Car> cars;
-    private final List<Ticket> tickets;
+    private final Map<Ticket, Car> ticketCarMap;
 
-    public PackingLot(int total) {
-        this.total = total;
-        this.cars = new ArrayList<>();
-        this.tickets = new ArrayList<>();
+    public PackingLot(int capacity) {
+        this.capacity = capacity;
+        this.ticketCarMap = new HashMap<>();
     }
 
     public Ticket parking(Car car) {
@@ -20,30 +18,22 @@ public class PackingLot {
             throw new RuntimeException("Space is full");
         }
 
-        this.cars.add(car);
-        var ticket = new Ticket(car.getCarNum());
-        this.tickets.add(ticket);
+        Ticket ticket = new Ticket();
+        this.ticketCarMap.put(ticket, car);
         return ticket;
     }
 
     public Car pickup(Ticket ticket) {
-        if (this.tickets.contains(ticket)) {
-            for (int i = 0; i < this.cars.size(); i ++) {
-                Car car = this.cars.get(i);
-                if (car.getCarNum().equals(ticket.getCarNum())) {
-                    return this.cars.remove(i);
-                }
-            }
-            throw new RuntimeException("This ticket is already used.");
+
+        if (this.ticketCarMap.containsKey(ticket)) {
+            return this.ticketCarMap.remove(ticket);
         }
         throw new RuntimeException("Invalid ticket");
     }
 
+
     public boolean hasSpace() {
-        return this.total - this.getUsedSize() != 0;
+        return this.capacity - this.ticketCarMap.size() != 0;
     }
 
-    public int getUsedSize() {
-        return cars.size();
-    }
 }
