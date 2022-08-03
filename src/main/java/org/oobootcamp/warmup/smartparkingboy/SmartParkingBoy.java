@@ -3,6 +3,7 @@ package org.oobootcamp.warmup.smartparkingboy;
 import org.oobootcamp.warmup.parkinglot.Car;
 import org.oobootcamp.warmup.parkinglot.PackingLot;
 import org.oobootcamp.warmup.parkinglot.Ticket;
+import org.oobootcamp.warmup.parkinglot.exception.ParkingLotInvalidTicket;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -34,6 +35,6 @@ public class SmartParkingBoy {
                 return car;
             }
         }
-        throw new RuntimeException("Invalid ticket");
+        throw new ParkingLotInvalidTicket();
     }
 }

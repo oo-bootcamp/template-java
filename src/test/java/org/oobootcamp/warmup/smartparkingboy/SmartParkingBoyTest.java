@@ -1,14 +1,14 @@
 package org.oobootcamp.warmup.smartparkingboy;
 
 import org.assertj.core.util.Lists;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
 import org.oobootcamp.warmup.parkinglot.Car;
 import org.oobootcamp.warmup.parkinglot.PackingLot;
 import org.oobootcamp.warmup.parkinglot.Ticket;
+import org.oobootcamp.warmup.parkinglot.exception.ParkingLotInvalidTicket;
+import org.oobootcamp.warmup.parkinglot.exception.ParkingLotSpaceIsFull;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.*;
 
 public class SmartParkingBoyTest {
 
@@ -53,9 +53,7 @@ public class SmartParkingBoyTest {
         this.packingLotB.parking(new Car());
         this.packingLotB.parking(new Car());
 
-        Exception thrown = Assertions.assertThrows(RuntimeException.class, () ->
-                this.smartParkingBoy.parking(new Car()));
-        assertEquals("Space is full", thrown.getMessage());
+        assertThrows(ParkingLotSpaceIsFull.class, () -> this.smartParkingBoy.parking(new Car()));
     }
 
     @Test
@@ -70,8 +68,9 @@ public class SmartParkingBoyTest {
 
     @Test
     void should_raise_invalid_ticket_error_message_when_pick_up_given_invalid_ticket() {
-        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.smartParkingBoy.pickup(new Ticket()));
-        assertEquals("Invalid ticket", thrown.getMessage());
+        Ticket ticket = new Ticket();
+
+        assertThrows(ParkingLotInvalidTicket.class, () -> this.smartParkingBoy.pickup(ticket));
     }
 
     @Test
@@ -79,7 +78,6 @@ public class SmartParkingBoyTest {
         Ticket ticket = this.packingLotA.parking(new Car());
         this.smartParkingBoy.pickup(ticket);
 
-        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.smartParkingBoy.pickup(ticket));
-        assertEquals("Invalid ticket", thrown.getMessage());
+        assertThrows(ParkingLotInvalidTicket.class, () -> this.smartParkingBoy.pickup(ticket));
     }
 }
