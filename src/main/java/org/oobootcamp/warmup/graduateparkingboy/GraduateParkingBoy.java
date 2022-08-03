@@ -1,8 +1,10 @@
 package org.oobootcamp.warmup.graduateparkingboy;
 
+import org.oobootcamp.warmup.graduateparkingboy.exception.GraduateParkingBoyAllSpaceIsFull;
 import org.oobootcamp.warmup.parkinglot.Car;
 import org.oobootcamp.warmup.parkinglot.PackingLot;
 import org.oobootcamp.warmup.parkinglot.Ticket;
+import org.oobootcamp.warmup.parkinglot.exception.ParkingLotInvalidTicket;
 
 import java.util.List;
 
@@ -19,7 +21,7 @@ public class GraduateParkingBoy {
                 return parkingLot.parking(car);
             }
         }
-        throw new RuntimeException("All space is full");
+        throw new GraduateParkingBoyAllSpaceIsFull();
     }
 
     public Car pickup(Ticket ticket) {
@@ -29,6 +31,6 @@ public class GraduateParkingBoy {
                 return car;
             }
         }
-        throw new RuntimeException("Invalid ticket");
+        throw new ParkingLotInvalidTicket();
     }
 }

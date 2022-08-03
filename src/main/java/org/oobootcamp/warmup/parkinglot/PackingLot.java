@@ -36,7 +36,7 @@ public class PackingLot {
 
 
     public boolean hasSpace() {
-        return this.capacity - this.ticketCarMap.size() != 0;
+        return this.restSpaceCount() != 0;
     }
 
     public int restSpaceCount() {

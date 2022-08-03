@@ -1,15 +1,16 @@
 package org.oobootcamp.warmup.graduateparkingboy;
 
 import org.assertj.core.util.Lists;
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.oobootcamp.warmup.graduateparkingboy.exception.GraduateParkingBoyAllSpaceIsFull;
 import org.oobootcamp.warmup.parkinglot.Car;
 import org.oobootcamp.warmup.parkinglot.PackingLot;
 import org.oobootcamp.warmup.parkinglot.Ticket;
+import org.oobootcamp.warmup.parkinglot.exception.ParkingLotInvalidTicket;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class GraduateParkingBoyTest {
 
@@ -31,8 +32,7 @@ public class GraduateParkingBoyTest {
         this.graduateParkingBoy.parking(new Car());
         this.graduateParkingBoy.parking(new Car());
 
-        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.graduateParkingBoy.parking(new Car()));
-        assertEquals("All space is full", thrown.getMessage());
+        assertThrows(GraduateParkingBoyAllSpaceIsFull.class, () -> this.graduateParkingBoy.parking(new Car()));
     }
 
     @Test
@@ -70,8 +70,7 @@ public class GraduateParkingBoyTest {
     void should_not_get_a_car_when_graduate_parking_boy_pick_up_car_given_a_invalid_ticket() {
         Ticket ticket = new Ticket();
 
-        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.graduateParkingBoy.pickup(ticket));
-        assertEquals("Invalid ticket", thrown.getMessage());
+        assertThrows(ParkingLotInvalidTicket.class, () -> this.graduateParkingBoy.pickup(ticket));
     }
 
     @Test
@@ -79,10 +78,9 @@ public class GraduateParkingBoyTest {
         Car car = new Car();
         Ticket ticket = this.graduateParkingBoy.parking(car);
 
-        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+        assertThrows(ParkingLotInvalidTicket.class, () -> {
             this.graduateParkingBoy.pickup(ticket);
             this.graduateParkingBoy.pickup(ticket);
         });
-        assertEquals("Invalid ticket", thrown.getMessage());
     }
 }
