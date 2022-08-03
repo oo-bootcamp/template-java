@@ -28,10 +28,14 @@ public class PackingLot {
 
     public Car pickup(Ticket ticket) {
 
-        if (this.ticketCarMap.containsKey(ticket)) {
+        if (hasTicket(ticket)) {
             return this.ticketCarMap.remove(ticket);
         }
         throw new ParkingLotInvalidTicket();
+    }
+
+    public boolean hasTicket(Ticket ticket) {
+        return this.ticketCarMap.containsKey(ticket);
     }
 
 

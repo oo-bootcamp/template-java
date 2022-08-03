@@ -30,9 +30,8 @@ public class SmartParkingBoy {
 
     public Car pickup(Ticket ticket) {
         for (PackingLot parkingLot: this.parkingLots) {
-            Car car = parkingLot.pickup(ticket);
-            if (car != null){
-                return car;
+            if (parkingLot.hasTicket(ticket)){
+                return parkingLot.pickup(ticket);
             }
         }
         throw new ParkingLotInvalidTicket();
