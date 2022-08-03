@@ -1,11 +1,12 @@
 package org.oobootcamp.warmup.parkinglot;
 
-import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.Test;
+import org.oobootcamp.warmup.parkinglot.exception.ParkingLotInvalidTicket;
+import org.oobootcamp.warmup.parkinglot.exception.ParkingLotSpaceIsFull;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertNotNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public class PackingLotTest {
 
@@ -21,8 +22,7 @@ public class PackingLotTest {
     void should_not_pack_when_parking_given_no_seats() {
         this.packingLot.parking(this.car);
 
-        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.packingLot.parking(this.car));
-        assertEquals("Space is full", thrown.getMessage());
+        assertThrows(ParkingLotSpaceIsFull.class, () -> this.packingLot.parking(this.car));
     }
 
     @Test
@@ -45,18 +45,16 @@ public class PackingLotTest {
     void should_not_get_a_car_when_pick_up_car_given_a_invalid_ticket() {
         Ticket ticket = new Ticket();
 
-        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.packingLot.pickup(ticket));
-        assertEquals("Invalid ticket", thrown.getMessage());
+        assertThrows(ParkingLotInvalidTicket.class, () -> this.packingLot.pickup(ticket));
     }
 
     @Test
     void should_not_get_a_car_when_pick_up_car_given_a_valid_ticket_was_used_twice() {
         Ticket ticket = this.packingLot.parking(this.car);
 
-        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+        assertThrows(ParkingLotInvalidTicket.class, () -> {
             this.packingLot.pickup(ticket);
             this.packingLot.pickup(ticket);
         });
-        assertEquals("Invalid ticket", thrown.getMessage());
     }
 }

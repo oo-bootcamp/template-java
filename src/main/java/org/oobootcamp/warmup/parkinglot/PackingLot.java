@@ -1,5 +1,8 @@
 package org.oobootcamp.warmup.parkinglot;
 
+import org.oobootcamp.warmup.parkinglot.exception.ParkingLotInvalidTicket;
+import org.oobootcamp.warmup.parkinglot.exception.ParkingLotSpaceIsFull;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -15,7 +18,7 @@ public class PackingLot {
 
     public Ticket parking(Car car) {
         if (! hasSpace()) {
-            throw new RuntimeException("Space is full");
+            throw new ParkingLotSpaceIsFull();
         }
 
         Ticket ticket = new Ticket();
@@ -28,7 +31,7 @@ public class PackingLot {
         if (this.ticketCarMap.containsKey(ticket)) {
             return this.ticketCarMap.remove(ticket);
         }
-        throw new RuntimeException("Invalid ticket");
+        throw new ParkingLotInvalidTicket();
     }
 
 
