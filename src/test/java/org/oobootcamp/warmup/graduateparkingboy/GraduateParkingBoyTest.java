@@ -73,4 +73,16 @@ public class GraduateParkingBoyTest {
         Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.graduateParkingBoy.pickup(ticket));
         assertEquals("Invalid ticket", thrown.getMessage());
     }
+
+    @Test
+    void should_not_get_a_car_when_graduate_parking_boy_pick_up_car_given_a_valid_ticket_was_used_twice() {
+        Car car = new Car();
+        Ticket ticket = this.graduateParkingBoy.parking(car);
+
+        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+            this.graduateParkingBoy.pickup(ticket);
+            this.graduateParkingBoy.pickup(ticket);
+        });
+        assertEquals("Invalid ticket", thrown.getMessage());
+    }
 }
