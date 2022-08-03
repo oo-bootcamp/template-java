@@ -48,4 +48,15 @@ public class PackingLotTest {
         Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> this.packingLot.pickup(ticket));
         assertEquals("Invalid ticket", thrown.getMessage());
     }
+
+    @Test
+    void should_not_get_a_car_when_pick_up_car_given_a_valid_ticket_was_used_twice() {
+        Ticket ticket = this.packingLot.parking(this.car);
+
+        Exception thrown = Assertions.assertThrows(RuntimeException.class, () -> {
+            this.packingLot.pickup(ticket);
+            this.packingLot.pickup(ticket);
+        });
+        assertEquals("Invalid ticket", thrown.getMessage());
+    }
 }
