@@ -1,35 +1,26 @@
 package org.oobootcamp.warmup.graduateparkingboy;
 
+import org.oobootcamp.warmup.ParkingBoy;
 import org.oobootcamp.warmup.graduateparkingboy.exception.GraduateParkingBoyAllSpaceIsFull;
 import org.oobootcamp.warmup.parkinglot.Car;
 import org.oobootcamp.warmup.parkinglot.PackingLot;
 import org.oobootcamp.warmup.parkinglot.Ticket;
-import org.oobootcamp.warmup.parkinglot.exception.ParkingLotInvalidTicket;
 
+import java.util.ArrayList;
 import java.util.List;
 
-public class GraduateParkingBoy {
-    private final List<PackingLot> parkingLots;
-
+public class GraduateParkingBoy extends ParkingBoy {
     public GraduateParkingBoy(List<PackingLot> parkingLots) {
-        this.parkingLots = parkingLots;
+        super((ArrayList<PackingLot>) parkingLots);
     }
 
+    @Override
     public Ticket parking(Car car) {
-        for (PackingLot parkingLot: this.parkingLots) {
+        for (PackingLot parkingLot: this.getParkingLots()) {
             if (parkingLot.hasSpace()){
                 return parkingLot.parking(car);
             }
         }
         throw new GraduateParkingBoyAllSpaceIsFull();
-    }
-
-    public Car pickup(Ticket ticket) {
-        for (PackingLot parkingLot: this.parkingLots) {
-            if (parkingLot.hasTicket(ticket)){
-                return parkingLot.pickup(ticket);
-            }
-        }
-        throw new ParkingLotInvalidTicket();
     }
 }
